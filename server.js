@@ -53,3 +53,20 @@ app.post('/addcard', async (req, res) => {
         res.status(500).json({ message: 'Server error - could not add card ' + card_name });
     }
 });
+// DELETE card
+app.delete('/cards/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        await connection.execute(
+            'DELETE FROM cards WHERE id=?',
+            [id]
+        );
+
+        res.json({ message: 'Dog species deleted successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+});
