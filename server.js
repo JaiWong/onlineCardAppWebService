@@ -30,7 +30,7 @@ app.listen(port,()=>{
 app.get('/allcards',async(req,res)=>{
     try{
         let connection  = await mysql.createConnection(dbConfig);
-        const [rows] = await connection.execute('SELECT * FROM defaultdb.cards');
+        const [rows] = await connection.execute('SELECT * FROM cards');
         res.json(rows);
     }catch (err) {
         console.log(err);
@@ -54,7 +54,7 @@ app.post('/addcard', async (req, res) => {
     }
 });
 // DELETE card
-app.delete('/cards/:id', async (req, res) => {
+app.delete('/deletecard/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
